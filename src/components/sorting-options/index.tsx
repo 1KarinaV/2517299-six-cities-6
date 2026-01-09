@@ -1,13 +1,12 @@
-import React from 'react';
-
-export type SortingType = 'Popular' | 'Price: low to high' | 'Price: high to low' | 'Top rated first';
+import React, { useCallback, useState } from 'react';
+import { SortingType } from '../../types/offers';
 
 type SortingOptionsProps = {
   currentSort: SortingType;
   onChangeSort: (sort: SortingType) => void;
 };
 
-const SORT_TYPES: SortingType[] = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
+const SORT_TYPES = Object.values(SortingType);
 
 const SortingOptions: React.FC<SortingOptionsProps> = ({ currentSort, onChangeSort }) => (
   <form className="places__sorting" action="#" method="get">
