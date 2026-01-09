@@ -36,6 +36,14 @@ const OfferPage: React.FC = () => {
     [nearbyOffers]
   );
 
+  const currentOfferForMap: Offer | null = currentOffer
+    ? {id: currentOffer.id, title: currentOffer.title, type: currentOffer.type, price: currentOffer.price, rating: currentOffer.rating, isPremium: currentOffer.isPremium, isFavorite: currentOffer.isFavorite, previewImage: currentOffer.images[0] || '', city: currentOffer.city, location: currentOffer.location}
+    : null;
+
+  const mapOffers = currentOfferForMap
+    ? [currentOfferForMap, ...nearbyOffersToShow]
+    : nearbyOffersToShow;
+
   const navigate = useNavigate();
 
   const handleFavoriteClick = () => {
@@ -166,8 +174,9 @@ const OfferPage: React.FC = () => {
           <section className="offer__map map">
             {currentOffer && (
               <Map
-                offers={nearbyOffersToShow}
+                offers={mapOffers}
                 center={currentOffer.city.location}
+                activeOfferId={currentOffer.id}
               />
             )}
           </section>
